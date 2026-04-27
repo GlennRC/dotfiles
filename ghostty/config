@@ -1,0 +1,93 @@
+# Ghostty config — One Dark theme
+
+background = #282c34
+foreground = #abb2bf
+
+# One Dark palette
+palette = 0=#181a1f
+palette = 1=#e86671
+palette = 2=#98c379
+palette = 3=#e5c07b
+palette = 4=#61afef
+palette = 5=#c678dd
+palette = 6=#56b6c2
+palette = 7=#abb2bf
+palette = 8=#5c6370
+palette = 9=#e86671
+palette = 10=#98c379
+palette = 11=#e5c07b
+palette = 12=#61afef
+palette = 13=#c678dd
+palette = 14=#56b6c2
+palette = 15=#ffffff
+
+# Window
+window-decoration = true
+macos-titlebar-style = tabs
+window-padding-x = 4
+window-padding-y = 4
+
+# Shell
+shell-integration = zsh
+
+# --- Remote tmux (Opt → esc: bridges, sends Alt+key to PTY) ---
+keybind = alt+t=esc:t
+keybind = alt+w=esc:w
+keybind = alt+d=esc:d
+keybind = alt+shift+d=esc:D
+keybind = alt+one=esc:1
+keybind = alt+two=esc:2
+keybind = alt+three=esc:3
+keybind = alt+four=esc:4
+keybind = alt+five=esc:5
+keybind = alt+six=esc:6
+keybind = alt+seven=esc:7
+keybind = alt+eight=esc:8
+keybind = alt+nine=esc:9
+keybind = alt+left_bracket=esc:[
+keybind = alt+right_bracket=esc:]
+keybind = alt+n=esc:n
+keybind = alt+e=esc:e
+keybind = alt+a=esc:a
+keybind = alt+o=esc:o
+keybind = alt+shift+n=esc:N
+keybind = alt+shift+e=esc:E
+keybind = alt+shift+a=esc:A
+keybind = alt+shift+o=esc:O
+keybind = alt+enter=esc:\x0d
+
+# --- Ghostty native (Cmd) ---
+keybind = super+t=new_tab
+keybind = super+w=close_surface
+keybind = super+d=new_split:right
+keybind = super+shift+d=new_split:down
+keybind = super+enter=toggle_split_zoom
+keybind = super+shift+equal=equalize_splits
+keybind = super+one=goto_tab:1
+keybind = super+two=goto_tab:2
+keybind = super+three=goto_tab:3
+keybind = super+four=goto_tab:4
+keybind = super+five=goto_tab:5
+keybind = super+six=goto_tab:6
+keybind = super+seven=goto_tab:7
+keybind = super+eight=goto_tab:8
+keybind = super+nine=goto_tab:9
+keybind = super+left_bracket=previous_tab
+keybind = super+right_bracket=next_tab
+keybind = super+shift+t=toggle_tab_overview
+keybind = super+n=goto_split:left
+keybind = super+e=goto_split:top
+keybind = super+a=goto_split:bottom
+keybind = super+o=goto_split:right
+keybind = super+shift+n=resize_split:left,50
+keybind = super+shift+e=resize_split:up,50
+keybind = super+shift+a=resize_split:down,50
+keybind = super+shift+o=resize_split:right,50
+
+# Copy/Paste (defaults: Cmd+C copy, Cmd+V paste)
+mouse-hide-while-typing = true
+copy-on-select = false
+
+# OSC 52 clipboard (for nvim yank over SSH/tmux)
+clipboard-write = allow
+clipboard-read = allow

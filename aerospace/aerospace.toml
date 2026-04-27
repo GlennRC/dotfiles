@@ -1,0 +1,98 @@
+# AeroSpace — keyboard-centric tiling (ISRT direction cluster)
+# Directions: n=left, e=up, a=down, o=right
+# Modifier: Ctrl+Cmd (left home row I+R) — avoids tmux Alt and Neovim Ctrl
+
+start-at-login = true
+after-login-command = []
+after-startup-command = []
+
+# Normalizations — flatten OFF so accordion nesting works
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = false
+
+# Default: tiles so windows appear side by side
+# Join windows manually to create accordion stacks
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'horizontal'
+
+# Gaps
+[gaps]
+inner.horizontal = 4
+inner.vertical = 4
+outer.left = 4
+outer.bottom = 4
+outer.top = 4
+outer.right = 4
+
+[mode.main.binding]
+# --- Focus ---
+# N/O = navigate between top-level tiles (left/right)
+# E/A = cycle windows within an accordion stack (up/down)
+ctrl-cmd-n = 'focus left'
+ctrl-cmd-o = 'focus right'
+ctrl-cmd-e = 'focus up'
+ctrl-cmd-a = 'focus down'
+
+# --- Move window (Ctrl+Cmd+Shift+dir) ---
+ctrl-cmd-shift-n = 'move left'
+ctrl-cmd-shift-o = 'move right'
+ctrl-cmd-shift-e = 'move up'
+ctrl-cmd-shift-a = 'move down'
+
+# --- Resize (Ctrl+Cmd+Shift+brackets) ---
+ctrl-cmd-shift-minus = 'resize smart -50'
+ctrl-cmd-shift-equal = 'resize smart +50'
+
+# --- Layout ---
+ctrl-cmd-f = 'layout floating tiling'
+ctrl-cmd-t = 'fullscreen'
+ctrl-cmd-b = 'balance-sizes'
+ctrl-cmd-slash = 'layout tiles horizontal vertical'
+ctrl-cmd-s = 'layout accordion tiles'
+
+# --- Join with neighbor (Ctrl+Cmd+Alt+dir) → vertical accordion group ---
+ctrl-cmd-alt-n = ['join-with left', 'layout v_accordion']
+ctrl-cmd-alt-o = ['join-with right', 'layout v_accordion']
+ctrl-cmd-alt-e = ['join-with up', 'layout v_accordion']
+ctrl-cmd-alt-a = ['join-with down', 'layout v_accordion']
+ctrl-cmd-alt-f = 'flatten-workspace-tree'
+
+# --- Workspaces (Cmd+number) ---
+cmd-1 = 'workspace 1'
+cmd-2 = 'workspace 2'
+cmd-3 = 'workspace 3'
+cmd-4 = 'workspace 4'
+
+# --- Move to workspace (Cmd+Shift+number) ---
+cmd-shift-1 = 'move-node-to-workspace 1'
+cmd-shift-2 = 'move-node-to-workspace 2'
+cmd-shift-3 = 'move-node-to-workspace 3'
+cmd-shift-4 = 'move-node-to-workspace 4'
+
+# --- Monitor focus ---
+ctrl-cmd-comma = 'focus-monitor left'
+ctrl-cmd-period = 'focus-monitor right'
+ctrl-cmd-shift-comma = 'move-node-to-monitor left'
+ctrl-cmd-shift-period = 'move-node-to-monitor right'
+
+# --- Float rules ---
+[[on-window-detected]]
+if.app-id = 'io.zsa.keymapp'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.Outlook'
+if.window-title-regex-substring = 'Reminder'
+run = 'layout floating'
+
+# --- Native tabbing (prevent tabs appearing as separate tiled windows) ---
+# macOS global: prefer tabs in all apps (merges tabs into single window)
+# Set via: defaults write -g AppleWindowTabbingMode -string always

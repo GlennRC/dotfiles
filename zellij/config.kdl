@@ -1,0 +1,124 @@
+// Zellij — non-modal Alt+key bindings (ISRT: n=left, e=up, a=down, o=right)
+// Mirrors tmux muscle memory, replaces prefix-mode with direct Alt combos
+
+keybinds clear-defaults=true {
+    // Non-modal bindings — work in all modes except locked
+    shared_except "locked" {
+        // --- Tabs ---
+        bind "Alt t" { NewTab; }
+        bind "Alt w" { CloseFocus; }
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt 5" { GoToTab 5; }
+        bind "Alt 6" { GoToTab 6; }
+        bind "Alt 7" { GoToTab 7; }
+        bind "Alt 8" { GoToTab 8; }
+        bind "Alt 9" { GoToTab 9; }
+        bind "Alt [" { GoToPreviousTab; }
+        bind "Alt ]" { GoToNextTab; }
+
+        // --- Splits ---
+        bind "Alt d" { NewPane "Right"; }
+        bind "Alt D" { NewPane "Down"; }
+        bind "Alt s" { NewPane "stacked"; }
+
+        // --- Pane focus (ISRT directional) ---
+        bind "Alt n" { MoveFocus "Left"; }
+        bind "Alt e" { MoveFocus "Up"; }
+        bind "Alt a" { MoveFocus "Down"; }
+        bind "Alt o" { MoveFocus "Right"; }
+
+        // --- Pane resize (Alt+Shift+dir) ---
+        bind "Alt N" { Resize "Increase Left"; }
+        bind "Alt E" { Resize "Increase Up"; }
+        bind "Alt A" { Resize "Increase Down"; }
+        bind "Alt O" { Resize "Increase Right"; }
+
+        // --- Zoom / Float ---
+        bind "Alt Enter" { ToggleFocusFullscreen; }
+        bind "Alt f" { ToggleFloatingPanes; }
+
+        // --- Scroll / Copy ---
+        bind "Alt v" { SwitchToMode "Scroll"; }
+
+        // --- Session ---
+        bind "Alt q" { Detach; }
+
+        // --- Lock (safety) ---
+        bind "Ctrl g" { SwitchToMode "Locked"; }
+    }
+
+    locked {
+        bind "Ctrl g" { SwitchToMode "Normal"; }
+    }
+
+    // Scroll mode (entered via Alt+v)
+    scroll {
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "d" { HalfPageScrollDown; }
+        bind "u" { HalfPageScrollUp; }
+        bind "Ctrl f" "PageDown" { PageScrollDown; }
+        bind "Ctrl b" "PageUp" { PageScrollUp; }
+        bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
+        bind "q" "Esc" { SwitchToMode "Normal"; }
+    }
+
+    entersearch {
+        bind "Enter" { SwitchToMode "Search"; }
+        bind "Esc" { SwitchToMode "Scroll"; }
+    }
+
+    search {
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "n" { Search "Down"; }
+        bind "p" { Search "Up"; }
+        bind "c" { SearchToggleOption "CaseSensitivity"; }
+        bind "w" { SearchToggleOption "Wrap"; }
+        bind "o" { SearchToggleOption "WholeWord"; }
+        bind "q" "Esc" { SwitchToMode "Normal"; }
+    }
+
+    // Allow Enter/Esc to exit modes back to normal
+    shared_except "Normal" "Locked" "EnterSearch" {
+        bind "Enter" { SwitchToMode "Normal"; }
+    }
+    shared_except "Normal" "Locked" "EnterSearch" "RenameTab" "RenamePane" {
+        bind "Esc" { SwitchToMode "Normal"; }
+    }
+}
+
+// Plugin aliases
+plugins {
+    compact-bar location="zellij:compact-bar"
+    configuration location="zellij:configuration"
+    plugin-manager location="zellij:plugin-manager"
+    session-manager location="zellij:session-manager"
+    status-bar location="zellij:status-bar"
+    tab-bar location="zellij:tab-bar"
+}
+
+load_plugins {
+}
+
+// Theme
+theme "one-dark"
+
+// Clipboard — use OSC 52 (works locally and over SSH)
+copy_on_select true
+
+// Scrollback
+// scroll_buffer_size 10000
+
+// Pane frames off for cleaner look with Alacritty
+pane_frames false
+
+// Session serialization for resurrection
+session_serialization true
+
+// Hide startup tips
+show_startup_tips false
+show_release_notes false
