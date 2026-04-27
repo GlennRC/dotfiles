@@ -11,7 +11,8 @@ option_as_alt = "Both"
 size = 14.0
 
 [terminal]
-shell = { program = "/opt/homebrew/bin/zellij", args = ["attach", "-c", "local"] }
+shell = { program = "/bin/zsh", args = ["-l", "-c", "zellij attach -c local"] }
+osc52 = "CopyPaste"
 
 [scrolling]
 history = 0  # Zellij handles scrollback
@@ -27,6 +28,7 @@ bindings = [
   { key = "R",      mods = "Command",       chars = "\u001br" },
   { key = "[",      mods = "Command",       chars = "\u001b[" },
   { key = "]",      mods = "Command",       chars = "\u001b]" },
+  { key = "Back",   mods = "Command",       chars = "\u001b\u007f" },
   { key = "1",      mods = "Command",       chars = "\u001b1" },
   { key = "2",      mods = "Command",       chars = "\u001b2" },
   { key = "3",      mods = "Command",       chars = "\u001b3" },
